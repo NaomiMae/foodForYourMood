@@ -1,3 +1,4 @@
+
 // Firebase Initialization
 var config = {
     apiKey: "AIzaSyBWRyj63kJmMlJquYYHELuAxtyA6oSo8Ic",
@@ -52,3 +53,38 @@ function error(err) {
 }
 
 navigator.geolocation.getCurrentPosition(success, error, options);
+
+$(document).ready(function () {
+
+    var answer = "";
+
+    $(".form-check-input").on("click", function () {
+        var id = $(this).attr("id");
+        answer = $("label[for='" + id + "']").text().trim();
+        // console.log(label);
+    });
+
+
+
+
+    $("#submit").on("click", function (event) {
+
+        event.preventDefault();
+
+        console.log(answer);
+
+    });
+
+
+
+
+
+
+    
+
+
+
+
+
+});
+
