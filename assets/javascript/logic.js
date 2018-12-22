@@ -7,7 +7,7 @@ var config = {
     projectId: "project-one-3614c",
     storageBucket: "",
     messagingSenderId: "1042255635290"
-  };
+};
 
 firebase.initializeApp(config);
 
@@ -75,7 +75,22 @@ $(document).ready(function () {
 
     });
 
-
+    var queryURL = "https://twinword-emotion-analysis-v1.p.rapidapi.com/analyze/?text=" +
+        answer;
+    // where we pull the info from our url.//
+    console.log("after url");
+    $.ajax({
+        url: queryURL,
+        headers: {
+            "X-RapidAPI-Key": "GYSavRj3MOmshxASbcqk3TQQfpCTp1b8Hjwjsn2OPtTaCiNc5P"
+        },
+        method: "GET"
+    }).then(function (result) {
+        console.log(result);
+        console.log(result.emotions_detected);
+        // console.log(result.status, result.headers, result.body);
+    })
+});
 
 
 
