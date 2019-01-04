@@ -1,105 +1,178 @@
-
-// Firebase Initialization
-var config = {
-    apiKey: "AIzaSyBWRyj63kJmMlJquYYHELuAxtyA6oSo8Ic",
-    authDomain: "project-one-3614c.firebaseapp.com",
-    databaseURL: "https://project-one-3614c.firebaseio.com",
-    projectId: "project-one-3614c",
-    storageBucket: "",
-    messagingSenderId: "1042255635290"
-};
-
-firebase.initializeApp(config);
-
-var database = firebase.database();
-
-// Food Varibles??? **WORK IN PROGRESS**
-var food = "Salmon"; // Temporary
-
-// Current Location
-var options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-};
-
-function success(pos) {
-    var crd = pos.coords;
-
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude: ${crd.longitude}`);
-
-    // Yelp API Call
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5",
-        "method": "GET",
-        "headers": {
-            "Authorization": "Bearer lkPp8VDxUNfjBDvplX2HatfYM6gaE9YqmjR6WrUuopFT09zAvcSgi8g_zH_CIXuF2S0uX4N_muM9UfNejegk4KKmH-O1x5qbYgsZr22olO-45R8sX8jm_bvpS0AcXHYx",
-            "cache-control": "no-cache",
-            "Postman-Token": "247d0ac8-a92a-40d5-b60a-40935e80bbf0"
-        }
-    }
-
-    $.ajax(settings).done(function (response) {
-        console.log(response);
-    });
-
-}
-
-function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-
-navigator.geolocation.getCurrentPosition(success, error, options);
-
 $(document).ready(function () {
+
+
+    // Firebase Initialization
+    var config = {
+        apiKey: "AIzaSyBWRyj63kJmMlJquYYHELuAxtyA6oSo8Ic",
+        authDomain: "project-one-3614c.firebaseapp.com",
+        databaseURL: "https://project-one-3614c.firebaseio.com",
+        projectId: "project-one-3614c",
+        storageBucket: "",
+        messagingSenderId: "1042255635290"
+    };
+    firebase.initializeApp(config);
+    var database = firebase.database();
+    //
+
+
+
+
+    // Food Varibles??? **WORK IN PROGRESS**
 
     var answer = "";
 
     $(".form-check-input").on("click", function () {
         var id = $(this).attr("id");
         answer = $("label[for='" + id + "']").text().trim();
-        // console.log(label);
     });
-
-
-
 
     $("#submit").on("click", function (event) {
-
         event.preventDefault();
-
-        console.log(answer);
-
+        emotionAPI();
     });
 
-    var queryURL = "https://twinword-emotion-analysis-v1.p.rapidapi.com/analyze/?text=" +
-        answer;
-    // where we pull the info from our url.//
-    console.log("after url");
-    $.ajax({
-        url: queryURL,
-        headers: {
-            "X-RapidAPI-Key": "GYSavRj3MOmshxASbcqk3TQQfpCTp1b8Hjwjsn2OPtTaCiNc5P"
-        },
-        method: "GET"
-    }).then(function (result) {
-        console.log(result);
-        console.log(result.emotions_detected);
-        // console.log(result.status, result.headers, result.body);
-    })
-});
+    var emotion = "";
 
 
+    var emotionAPI = function () {
+
+        var queryURL = "https://twinword-emotion-analysis-v1.p.rapidapi.com/analyze/?text=" + answer;
+
+        // $.ajax({
+        //     url: queryURL,
+        //     headers: {
+        //         "X-RapidAPI-Key": "GYSavRj3MOmshxASbcqk3TQQfpCTp1b8Hjwjsn2OPtTaCiNc5P"
+        //     },
+        //     method: "GET"
+        // }).then(function (result) {
+        emotion = "joy";
+        //     emotion = result.emotions_detected[0];
+        //     console.log(emotion + ": retrieved from analysisAPI" );
+        navigator.geolocation.getCurrentPosition(success, error, options);
+        // });
+
+    };
+
+
+
+
+
+
+
+    // 1.) success function
+    function success(pos) {
+
+        var food = "";
+
+        if (emotion === "joy") {
+            food = "juice";
+        } else if (emotion === "surprise") {
+            food = "tea";
+        } else if (emotion === "anger") {
+            food = "nuts";
+        } else if (emotion === "disgust") {
+            food = "smoothie";
+        } else if (emotion === "fear") {
+            food = "guacamole";
+        } else if (emotion === "sadness") {
+            food = "seafood";
+        } else {
+            food = "ice cream";
+        }
+
+        console.log("emotion: " + emotion + ", food: " + food);
+
+        var crd = pos.coords;
+
+        // Yelp API Call
+        $.ajax({
+            "async": true,
+            "crossDomain": true,
+            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=1",
+            "method": "GET",
+            "headers": {
+                "Authorization": "Bearer lkPp8VDxUNfjBDvplX2HatfYM6gaE9YqmjR6WrUuopFT09zAvcSgi8g_zH_CIXuF2S0uX4N_muM9UfNejegk4KKmH-O1x5qbYgsZr22olO-45R8sX8jm_bvpS0AcXHYx",
+                "cache-control": "no-cache",
+                "Postman-Token": "247d0ac8-a92a-40d5-b60a-40935e80bbf0"
+            }
+        }).done(function (response) {
+            console.log(JSON.stringify(response));
+        });
+    }
+
+
+    // 2.) error handler
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+
+    // 3.) Current Location
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+
+
+// temporary 
+    var yelpExampleResponse = {
+        "businesses": [
+            {
+                "id": "yEXvgdOxH6EGrwGmELzQAQ",
+                "alias": "strippd-cold-pressed-juice-philadelphia",
+                "name": "Stripp'd Cold Pressed Juice",
+                "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/ERg6G1fjRm_IV25ff24uRQ/o.jpg",
+                "is_closed": false,
+                "url": "https://www.yelp.com/biz/strippd-cold-pressed-juice-philadelphia?adjust_creative=0c0mfTmRd_6-qHgL7DTFGQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=0c0mfTmRd_6-qHgL7DTFGQ", "review_count": 70,
+                "categories": [
+                    {
+                        "alias": "juicebars",
+                        "title": "Juice Bars & Smoothies"
+                    }
+                ],
+                "rating": 4,
+                "coordinates": {
+                    "latitude": 39.9557445088613,
+                    "longitude": -75.144189775091
+                },
+                "transactions": [],
+                "price": "$$",
+                "location": {
+                    "address1": "263 N 3rd St",
+                    "address2": "",
+                    "address3": "",
+                    "city": "Philadelphia",
+                    "zip_code": "19106",
+                    "country": "US",
+                    "state": "PA",
+                    "display_address": [
+                        "263 N 3rd St", "Philadelphia, PA 19106"
+                    ]
+                },
+                "phone": "+12675507877",
+                "display_phone": "(267) 550-7877",
+                "distance": 721.9049638940721
+            }
+        ],
+        "total": 356,
+        "region": {
+            "center": {
+                "longitude": -75.1442272,
+                "latitude": 39.9622367
+            }
+        }
+    }
 
 
     
 
-
-
-
-
 });
+
+
+
+
+
+
 
