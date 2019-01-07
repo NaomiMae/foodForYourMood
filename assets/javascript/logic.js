@@ -80,7 +80,7 @@ $(document).ready(function () {
             food = "ice cream";
         }
 
-        console.log("emotion: " + emotion + ", food: " + food);
+        // console.log("emotion: " + emotion + ", food: " + food);
 
         var crd = pos.coords;
 
@@ -88,16 +88,17 @@ $(document).ready(function () {
         $.ajax({
             "async": true,
             "crossDomain": true,
-            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=1",
+            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5",
             "method": "GET",
             "headers": {
                 "Authorization": "Bearer lkPp8VDxUNfjBDvplX2HatfYM6gaE9YqmjR6WrUuopFT09zAvcSgi8g_zH_CIXuF2S0uX4N_muM9UfNejegk4KKmH-O1x5qbYgsZr22olO-45R8sX8jm_bvpS0AcXHYx",
                 "cache-control": "no-cache",
                 "Postman-Token": "247d0ac8-a92a-40d5-b60a-40935e80bbf0"
             }
-        }).done(
+        }).done(function(response) {
             display(response)
-        );
+            // console.log(response);
+        });
     }
 
 
@@ -116,11 +117,37 @@ $(document).ready(function () {
 
 
     var display = function (response) {
-        var data = response.businesses;
+        $("#yelpwidget").empty();
 
-        var newDiv = $("<div id='' class=''>");
-        newDiv.attr()
+        var data = response.businesses;
+        
+        data.forEach(function(y, i) {
+            // console.log(i);
+            // console.log(y);
+            var yelpID = y.id;
+            yelpEmbed(yelpID);
+            // console.log(yelpResult);
+            // console.log(yelpEmbed(yelpID));
+            // console.log(yelpResult);
+            // yelpResult.attr("id", yelpResult.attr("id") && i);
+            // newDiv.append(yelpResult);
+        });
+
     };
+
+
+    var yelpEmbed = function (yelpID) {
+        var id = yelpID;
+        console.log("yelp widget running");
+        var s = document.createElement("script");
+        s.async = true;
+        s.onload = s.onreadystatechange = function () {
+            getYelpWidget(id, "400", "YLW", "y", "y", "0");
+        };
+        s.src = 'http://chrisawren.com/widgets/yelp/yelpv2.js';
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+    }
 
 
     // temporary 
@@ -179,21 +206,54 @@ $(document).ready(function () {
 });
 
 
-(function () {
-    var s = document.createElement("script");
-    s.async = true;
-    s.onload = s.onreadystatechange = function () {
-        getYelpWidget("yEXvgdOxH6EGrwGmELzQAQ", "400", "YLW", "y", "y", "0");
-    };
-    s.src = 'http://chrisawren.com/widgets/yelp/yelpv2.js';
-    var x = document.getElementsByTagName('script')[0];
-    x.parentNode.insertBefore(s, x);
-})();
+// (function () {
+//     var s = document.createElement("script");
+//     s.async = true;
+//     s.onload = s.onreadystatechange = function () {
+//         getYelpWidget("yEXvgdOxH6EGrwGmELzQAQ", "400", "YLW", "y", "y", "");
+//     };
+//     s.src = 'http://chrisawren.com/widgets/yelp/yelpv2.js';
+//     var x = document.getElementsByTagName('script')[0];
+//     x.parentNode.insertBefore(s, x);
+// })();
 
 
 
 
 
+
+
+
+
+// var yelpDiv = $("<div id='yelp' style='width:400px;'>");
+// var mainLink = $("<a>").attr('href', mainURL);
+// var bizImg = $("<img style='box-shadow : 0px 0px 4px rgba(0, 0, 0, .4); margin-right : .5em; float : left ' id='businessimg'>").attr("src", bizURL);
+// var yelpHeaderDiv = $("<div id='yelpheader' style='display:block'>");
+// var yelpTitleDiv = $("<div style='font-weight:bold;' id='yelptitle' width='400px'></div>").text(yelpTitle);
+// var starImg = $("<img id='yelpstarrating' width='115px'>").attr("src", starsURL);
+// var br = $("<br>");
+// mainLink used again in an 'a' tag;
+// var buttonImg = $("<a id='yelpbutton' >").attr("src", buttonImgURL);
+// var numreviewsDiv = $("<div style='font-weight:bold;' id='numreviews'>");
+
+
+/*<div id="yelp" style="width:400px;">
+    <a href="https://www.yelp.com/biz/strippd-cold-pressed-juice-philadelphia?adjust_creative=KIC1kljVCaw8KahDmWCSNw&amp;utm_campaign=yelp_api&amp;utm_medium=api_v2_business&amp;utm_source=KIC1kljVCaw8KahDmWCSNw">
+        <img style="box-shadow : 0px 0px 4px rgba(0, 0, 0, .4); margin-right : .5em; float : left " id="businessimg" src="https://s3-media3.fl.yelpcdn.com/bphoto/ERg6G1fjRm_IV25ff24uRQ/ms.jpg">
+        </a>
+        <div id="yelpheader" style="display:block">
+            <div style="font-weight:bold;" id="yelptitle" width="400px">Stripp'd Cold Pressed Juice</div>
+            <img id="yelpstarrating" width="115px" src="https://s3-media2.fl.yelpcdn.com/assets/2/www/img/7f02623f2d55/ico/stars/v1/stars_large_4.png">
+                <br>
+                    <a href="https://www.yelp.com/biz/strippd-cold-pressed-juice-philadelphia?adjust_creative=KIC1kljVCaw8KahDmWCSNw&amp;utm_campaign=yelp_api&amp;utm_medium=api_v2_business&amp;utm_source=KIC1kljVCaw8KahDmWCSNw">
+                        <img style="" id="yelpbutton" src="http://chrisawren.com/widgets/yelp/yelp/reviewsFromYelpYLW.gif">
+                            <br>
+            </a>
+                            <div style="font-weight:bold;" id="numreviews">70 Reviews</div>
+        </div>
+                        <br>
+    </div>
+*/
 
 
 
