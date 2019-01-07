@@ -80,9 +80,9 @@ $(document).ready(function () {
             food = "ice cream";
         }
 
-        // console.log("emotion: " + emotion + ", food: " + food);
 
         var crd = pos.coords;
+
 
         // Yelp API Call
         $.ajax({
@@ -95,11 +95,27 @@ $(document).ready(function () {
                 "cache-control": "no-cache",
                 "Postman-Token": "247d0ac8-a92a-40d5-b60a-40935e80bbf0"
             }
-        }).done(function(response) {
+        }).done(function (response) {
             display(response)
             // console.log(response);
         });
-    }
+
+        $.ajax({
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.yelp.com/v3/businesses/search?term=delis&location=" + zip,
+            "method": "GET",
+            "headers": {
+                "Authorization": "Bearer lkPp8VDxUNfjBDvplX2HatfYM6gaE9YqmjR6WrUuopFT09zAvcSgi8g_zH_CIXuF2S0uX4N_muM9UfNejegk4KKmH-O1x5qbYgsZr22olO-45R8sX8jm_bvpS0AcXHYx",
+                "cache-control": "no-cache",
+                "Postman-Token": "247d0ac8-a92a-40d5-b60a-40935e80bbf0"
+            }
+        }).done(function (response) {
+            display(response)
+            // console.log(response);
+        });        
+
+
 
 
     // 2.) error handler
@@ -120,8 +136,8 @@ $(document).ready(function () {
         $("#yelpwidget").empty();
 
         var data = response.businesses;
-        
-        data.forEach(function(y, i) {
+
+        data.forEach(function (y, i) {
             // console.log(i);
             // console.log(y);
             var yelpID = y.id;
