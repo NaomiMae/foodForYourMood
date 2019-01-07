@@ -48,6 +48,13 @@ $(document).ready(function () {
         emotion = "joy";
         //     emotion = result.emotions_detected[0];
         //     console.log(emotion + ": retrieved from analysisAPI" );
+
+        // if ($("#zip")) {
+        //     settings.url = "https://api.yelp.com/v3/businesses/search?term=delis&location=" + zip + ;
+        // } else {
+        //     settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5";
+        // };
+
         navigator.geolocation.getCurrentPosition(success, error, options);
         // });
 
@@ -80,32 +87,44 @@ $(document).ready(function () {
             food = "ice cream";
         }
 
-        // console.log("emotion: " + emotion + ", food: " + food);
 
         var crd = pos.coords;
 
+
         // Yelp API Call
-        $.ajax({
+
+
+        var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5",
+            // "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5",
             "method": "GET",
             "headers": {
                 "Authorization": "Bearer lkPp8VDxUNfjBDvplX2HatfYM6gaE9YqmjR6WrUuopFT09zAvcSgi8g_zH_CIXuF2S0uX4N_muM9UfNejegk4KKmH-O1x5qbYgsZr22olO-45R8sX8jm_bvpS0AcXHYx",
                 "cache-control": "no-cache",
                 "Postman-Token": "247d0ac8-a92a-40d5-b60a-40935e80bbf0"
             }
-        }).done(function(response) {
+        }
+
+        if ($("#zip")) {
+            var zip = $("#zip").val();
+            settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + food + "&location=" + zip + "&limit=5";
+        } else {
+            settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5";
+        };
+
+        $.ajax(settings).done(function (response) {
             display(response)
             // console.log(response);
         });
-    }
 
+
+    }
 
     // 2.) error handler
     function error(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`);
-    }
+    };
 
 
     // 3.) Current Location
@@ -120,8 +139,8 @@ $(document).ready(function () {
         $("#yelpwidget").empty();
 
         var data = response.businesses;
-        
-        data.forEach(function(y, i) {
+
+        data.forEach(function (y, i) {
             // console.log(i);
             // console.log(y);
             var yelpID = y.id;
@@ -138,68 +157,47 @@ $(document).ready(function () {
 
     var yelpEmbed = function (yelpID) {
         var id = yelpID;
-        console.log("yelp widget running");
+        // console.log("yelp widget running");
         var s = document.createElement("script");
         s.async = true;
-        s.onload = s.onreadystatechange = function () {
-            getYelpWidget(id, "400", "YLW", "y", "y", "0");
-        };
+        // s.onload = s.onreadystatechange = function () {
+        getYelpWidget(id, "400", "YLW", "y", "y", "0");
+        // };
         s.src = 'http://chrisawren.com/widgets/yelp/yelpv2.js';
         var x = document.getElementsByTagName('script')[0];
         x.parentNode.insertBefore(s, x);
     }
 
 
-    // temporary 
-    var yelpExampleResponse = {
-        "businesses": [
-            {
-                "id": "yEXvgdOxH6EGrwGmELzQAQ",
-                "alias": "strippd-cold-pressed-juice-philadelphia",
-                "name": "Stripp'd Cold Pressed Juice",
-                "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/ERg6G1fjRm_IV25ff24uRQ/o.jpg",
-                "is_closed": false,
-                "url": "https://www.yelp.com/biz/strippd-cold-pressed-juice-philadelphia?adjust_creative=0c0mfTmRd_6-qHgL7DTFGQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=0c0mfTmRd_6-qHgL7DTFGQ", "review_count": 70,
-                "categories": [
-                    {
-                        "alias": "juicebars",
-                        "title": "Juice Bars & Smoothies"
-                    }
-                ],
-                "rating": 4,
-                "coordinates": {
-                    "latitude": 39.9557445088613,
-                    "longitude": -75.144189775091
-                },
-                "transactions": [],
-                "price": "$$",
-                "location": {
-                    "address1": "263 N 3rd St",
-                    "address2": "",
-                    "address3": "",
-                    "city": "Philadelphia",
-                    "zip_code": "19106",
-                    "country": "US",
-                    "state": "PA",
-                    "display_address": [
-                        "263 N 3rd St", "Philadelphia, PA 19106"
-                    ]
-                },
-                "phone": "+12675507877",
-                "display_phone": "(267) 550-7877",
-                "distance": 721.9049638940721
-            }
-        ],
-        "total": 356,
-        "region": {
-            "center": {
-                "longitude": -75.1442272,
-                "latitude": 39.9622367
+    // brought in the code from the 3rd party widget and changed the html to append instead of replace
+    function getYelpWidget(id, width, color, image, styled, reviewnum) {
+        if ('withCredentials' in new XMLHttpRequest()) {
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    // document.getElementById('yelpwidget').innerHTML = xmlHttp.responseText;
+                    $("#yelpwidget").append(xmlHttp.responseText);
+                }
+            };
+            xmlHttp.open("GET", 'http://chrisawren.com/widgets/yelp/yelpv2.php?id=' + id + '&width=' + width + '&color=' + color + '&styled=' + styled + '&image=' + image + '&reviewnum=' + reviewnum, true);
+            xmlHttp.send();
+        }
+        else {
+            if (typeof XDomainRequest !== "undefined") {
+                // 1. Create XDR object
+                var xdr = new XDomainRequest();
+                xdr.onload = function () {
+                    // document.getElementById('yelpwidget').innerHTML = xdr.responseText;
+                    $("#yelpwidget").append(xdr.responseText);
+                };
+                // 2. Open connection with server using GET method
+                xdr.open("GET", 'http://chrisawren.com/widgets/yelp/yelpv2.php?id=' + id + '&width=' + width + '&color=' + color + '&styled=' + styled + '&image=' + image + '&reviewnum=' + reviewnum, true);
+                // 3. Send string data to server
+                xdr.send();
             }
         }
     }
-
-
 
 
 
@@ -257,3 +255,67 @@ $(document).ready(function () {
 
 
 
+// {
+//     "async": true,
+//     "crossDomain": true,
+//     "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5",
+//     "method": "GET",
+//     "headers": {
+//         "Authorization": "Bearer lkPp8VDxUNfjBDvplX2HatfYM6gaE9YqmjR6WrUuopFT09zAvcSgi8g_zH_CIXuF2S0uX4N_muM9UfNejegk4KKmH-O1x5qbYgsZr22olO-45R8sX8jm_bvpS0AcXHYx",
+//         "cache-control": "no-cache",
+//         "Postman-Token": "247d0ac8-a92a-40d5-b60a-40935e80bbf0"
+//     }
+// }
+
+
+
+
+
+        // temporary 
+        // var yelpExampleResponse = {
+        //     "businesses": [
+        //         {
+        //             "id": "yEXvgdOxH6EGrwGmELzQAQ",
+        //             "alias": "strippd-cold-pressed-juice-philadelphia",
+        //             "name": "Stripp'd Cold Pressed Juice",
+        //             "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/ERg6G1fjRm_IV25ff24uRQ/o.jpg",
+        //             "is_closed": false,
+        //             "url": "https://www.yelp.com/biz/strippd-cold-pressed-juice-philadelphia?adjust_creative=0c0mfTmRd_6-qHgL7DTFGQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=0c0mfTmRd_6-qHgL7DTFGQ", "review_count": 70,
+        //             "categories": [
+        //                 {
+        //                     "alias": "juicebars",
+        //                     "title": "Juice Bars & Smoothies"
+        //                 }
+        //             ],
+        //             "rating": 4,
+        //             "coordinates": {
+        //                 "latitude": 39.9557445088613,
+        //                 "longitude": -75.144189775091
+        //             },
+        //             "transactions": [],
+        //             "price": "$$",
+        //             "location": {
+        //                 "address1": "263 N 3rd St",
+        //                 "address2": "",
+        //                 "address3": "",
+        //                 "city": "Philadelphia",
+        //                 "zip_code": "19106",
+        //                 "country": "US",
+        //                 "state": "PA",
+        //                 "display_address": [
+        //                     "263 N 3rd St", "Philadelphia, PA 19106"
+        //                 ]
+        //             },
+        //             "phone": "+12675507877",
+        //             "display_phone": "(267) 550-7877",
+        //             "distance": 721.9049638940721
+        //         }
+        //     ],
+        //     "total": 356,
+        //     "region": {
+        //         "center": {
+        //             "longitude": -75.1442272,
+        //             "latitude": 39.9622367
+        //         }
+        //     }
+        // }
