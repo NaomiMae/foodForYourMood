@@ -2,7 +2,7 @@
     background-color:beige;
     background-image: url("../images/back.png");
     background-repeat: no-repeat;
-    background-size: 1500px 700px;
+    background-size: 100%;
     background-position: right top; }
 #format {
     margin: auto;
@@ -31,8 +31,9 @@
       font-weight: bold;
       font-size: 20px;
   }
-  #top{
+  #jumbo{
       background-color:rgb(129,29,83);
+      color:white;
   }
   #start{
       padding-left:30px;
@@ -42,35 +43,14 @@
       background-color: rgb(255,11,1);
       position: relative;
     
-      
     
   }
-
-  /* #zip{
-      position: relative;
-      bottom:-150px;
-  } */
-  /* .btn{
-      color:(129,28,83);
-  } */
-  /* #start {
-	width: 200px;
-	height: 200px;
-	
-	background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
-	background-image: -webkit-radial-gradient(45px 45px, circle cover, yellow, orange);
-	background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
-	
-	animation-name: spin; 
-	animation-duration: 3s; /* 3 seconds
-	animation-iteration-count: infinite; 
-	animation-timing-function: linear;
-}
-@keyframes spin {
-	from { transform: rotate(0deg); }
-	to { transform: rotate(360deg); }
-} */
-/* #opener{
-    position: relative;
-    float:left;
-}   */
+  #submit{
+    background-color:rgb(102,102,102);
+  }
+  #results{
+    background-color:rgb(255,111,1);
+  }
+  #foodResults{
+    background-color:rgb(254,216,0);
+  }

@@ -36,7 +36,7 @@
         </div>
 
         <header id="top" class="container">
-            <div id="" class="jumbotron">
+            <div id="jumbo" class="jumbotron">
                 <p id="" class="display-4 text-center">Food for Your Mood</p>
             </div>
         </header>
@@ -52,7 +52,8 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div> -->
-        <div class="hide">
+        <div class="hide" id="responses">
+
             <form id="words" class="">
 
 
@@ -116,12 +117,58 @@
             <br>
 
         </div>
+        <div>
+    
+            <div class="jumbotron" id="results">Results</div>
+                <table class="table table-bordered" id="yelpResults">
+                    <thead>
+                      
+                        <tr>
+                            <th scope="col">Mood</th>
+                            <th scope="col">Food</tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" id="currentMood"></th>
+                            <th scope="row" id="foodToEat"></th>
+                        
 
+                        </tr>
 
+                    </tbody>
+                </table>
 
-    </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="jumbotron" id="foodResults">Results</div>
+                <table class="table table-bordered" id="yelpResults">
+                    <thead>
+                      
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name of Restaurant</th>
+                            <th scope="col">Reviews</th>
 
-    <br>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" id="image"></th>
+                            <th scope="row" id="nameOfRestaurant"></th>
+                            <th scope="row" id="reviews"></th>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <br>
 </body>
 
 </html>
