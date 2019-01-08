@@ -1,4 +1,9 @@
 $(document).ready(function () {
+ 
+
+    
+    // $("#top").show();
+    // $("#opener").hide();
 
 
     // Firebase Initialization
@@ -73,6 +78,8 @@ $(document).ready(function () {
 
         if (emotion === "joy") {
             food = "juice";
+            $("#responses").show();
+            $("#responses").text("Hello world!");
         } else if (emotion === "surprise") {
             food = "tea";
         } else if (emotion === "anger") {
@@ -80,6 +87,8 @@ $(document).ready(function () {
         } else if (emotion === "disgust") {
             food = "smoothie";
         } else if (emotion === "fear") {
+            $("#responses").show();
+            $("#responses").text("Research suggests that folate deficiency may be behind irrational fears and anxiety, so try upping your intake of folate – as well as mood-boosting Omega-3 – by snacking on avocado.");
             food = "guacamole";
         } else if (emotion === "sadness") {
             food = "seafood";
@@ -199,9 +208,9 @@ $(document).ready(function () {
         }
     }
 
-
-
 });
+
+
 
 
 // (function () {
