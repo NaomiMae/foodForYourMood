@@ -19,28 +19,36 @@
 
 
 <body id="body">
-    <br>
-    <div id="opener">
-        <div id="" class="container d-flex justify-content-center ">
-            <div id="gif row ">
-                <img src="./assets/images/giphy.gif" width="384" height="480" class="" allowFullScreen>
-                <br>
-                <br>
-                <div>
-                    <!-- <button type="button" id="start" class="btn btn-secondary">Enter</button> -->
+    <div id="opener" class="container">
+        <div id="" class="row">
+            <div id="" class="col-md-12">
+
+                <div id="" class="container">
+                    <div id="" class="row">
+                        <div id="" class="col-md-12">
+                            <div id="" class="d-flex justify-content-center">
+                                <div id="gif">
+                                    <img src="./assets/images/giphy.gif" width="384" height="480">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <header id="top" class="container">
-            <div id="jumbo" class="jumbotron">
-                <p id="" class="display-4 text-center">Food for Your Mood</p>
-            </div>
-        </header>
 
-    </div>
-    <div id="yelpwidget" class="container">
-        <!-- <div class="card" id="responses" style="width: 18rem;">
+                <header id="top" class="container">
+                    <div id="" class="row">
+                        <div id="" class="col-md-12">
+                            <div id="jumbo" class="jumbotron">
+                                <p id="" class="display-4 text-center">Food for Your Mood</p>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                !
+            </div>
+            <div id="yelpwidget" class="container">
+                <!-- <div class="card" id="responses" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -49,101 +57,102 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div> -->
-        <div class="hide" id="responses">
+                <div class="hide" id="responses">
 
-            <form id="words" class="">
-
-
-                <div id="" class="container row">
-                    <label id="" class="" for="zip">
-                        Optional: Enter your zip code:
-                    </label>
-                    <input id="zip" class="" type="text" name="">
-                </div> <br>
+                    <form id="words" class="">
 
 
-                <div id="" class="">
-                    <p id="" class="">Please select one of the following that best describes your current mood:</p>
+                        <div id="" class="container-fluid row">
+                            <label id="" class="" for="zip">
+                                Optional: Enter your zip code:
+                            </label>
+                            <input id="zip" class="" type="text" name="">
+                        </div>
+                        <br>
+
+
+                        <div id="" class="">
+                            <p id="" class="">Please select one of the following that best describes your current mood:</p>
+                        </div>
+                        <div id="" class="form-check">
+                            <input id="q1" class="form-check-input" type="radio" name="moods" value="option1">
+                            <label id="" class="form-check-label" for="q1">
+                                Sometimes I feel like no one can hear me when I speak
+                            </label>
+                        </div>
+
+                        <div id="" class="form-check">
+                            <input id="q2" class="form-check-input" type="radio" name="moods" value="option2">
+                            <label id="" class="form-check-label" for="q2">
+                                Waking up today I knew I was going to be productive.
+                            </label>
+                        </div>
+
+
+
+                        <div id="" class="form-check">
+                            <input id="q3" class="form-check-input" type="radio" name="moods" value="option3">
+                            <label id="" class="form-check-label" for="q3">
+                                I am excited to see what today will bring.
+                            </label>
+                        </div>
+
+
+                        <div id="" class="form-check">
+                            <input id="q4" class="form-check-input" type="radio" name="moods" value="option4">
+                            <label id="" class="form-check-label" for="q4">
+                                The newness of the day was scary.
+                            </label>
+                        </div>
+
+
+                        <div id="" class="form-check">
+                            <input id="q5" class="form-check-input" type="radio" name="moods" value="option5">
+                            <label id="" class="form-check-label" for="q5">
+                                This seasonal depression is the worst.
+                            </label>
+                        </div>
+
+                        <br>
+
+                        <button id="submit" class="btn btn-primary" type="submit">Submit</button>
+
+                    </form>
+
+                    <br>
+                    <br>
+
                 </div>
-                <div id="" class="form-check">
-                    <input id="q1" class="form-check-input" type="radio" name="moods" value="option1">
-                    <label id="" class="form-check-label" for="q1">
-                        Sometimes I feel like no one can hear me when I speak
-                    </label>
+                <div>
+
+                    <div class="jumbotron" id="results">Results</div>
+                    <table class="table table-bordered" id="yelpResults">
+                        <thead>
+
+                            <tr>
+                                <th scope="col">Mood</th>
+                                <th scope="col">Food</tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" id="currentMood"></th>
+                                <th scope="row" id="foodToEat"></th>
+
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
                 </div>
-
-                <div id="" class="form-check">
-                    <input id="q2" class="form-check-input" type="radio" name="moods" value="option2">
-                    <label id="" class="form-check-label" for="q2">
-                        Waking up today I knew I was going to be productive.
-                    </label>
-                </div>
-
-
-
-                <div id="" class="form-check">
-                    <input id="q3" class="form-check-input" type="radio" name="moods" value="option3">
-                    <label id="" class="form-check-label" for="q3">
-                        I am excited to see what today will bring.
-                    </label>
-                </div>
-
-
-                <div id="" class="form-check">
-                    <input id="q4" class="form-check-input" type="radio" name="moods" value="option4">
-                    <label id="" class="form-check-label" for="q4">
-                        The newness of the day was scary.
-                    </label>
-                </div>
-
-
-                <div id="" class="form-check">
-                    <input id="q5" class="form-check-input" type="radio" name="moods" value="option5">
-                    <label id="" class="form-check-label" for="q5">
-                        This seasonal depression is the worst.
-                    </label>
-                </div>
-
                 <br>
-
-                <button id="submit" class="btn btn-primary" type="submit">Submit</button>
-
-            </form>
-
-            <br>
-            <br>
-
-        </div>
-        <div>
-    
-            <div class="jumbotron" id="results">Results</div>
+                <br>
+                <br>
+                <div class="jumbotron" id="foodResults">Results</div>
                 <table class="table table-bordered" id="yelpResults">
                     <thead>
-                      
-                        <tr>
-                            <th scope="col">Mood</th>
-                            <th scope="col">Food</tr>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row" id="currentMood"></th>
-                            <th scope="row" id="foodToEat"></th>
-                        
 
-                        </tr>
-
-                    </tbody>
-                </table>
-
-            </div>
-            <br>
-            <br>
-            <br>
-            <div class="jumbotron" id="foodResults">Results</div>
-                <table class="table table-bordered" id="yelpResults">
-                    <thead>
-                      
                         <tr>
                             <th scope="col">Image</th>
                             <th scope="col">Name of Restaurant</th>
@@ -166,6 +175,7 @@
         </div>
 
         <br>
+    </div>
 </body>
 
 </html>

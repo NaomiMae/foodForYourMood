@@ -3,13 +3,18 @@
     background-image: url("../images/back.png");
     background-repeat: no-repeat;
     background-size: 100%;
-    background-position: right top; }
+    background-position: right top; 
+}
+
 #format {
     margin: auto;
     width: 50%;
     padding: 10px;
 }
-  
+  /* * {
+    box-sizing: inherit;
+  } */
+
   #gif {
       position: relative;
       top:230px;
@@ -42,12 +47,12 @@
       font-family: 'Raleway', sans-serif;
       background-color: rgb(255,11,1);
       position: relative;
-    
-    
   }
+
   #submit{
     background-color:rgb(102,102,102);
   }
+  
   #results{
     background-color:rgb(255,111,1);
   }
