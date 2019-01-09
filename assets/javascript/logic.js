@@ -25,10 +25,12 @@ $(document).ready(function () {
     // Food Varibles??? **WORK IN PROGRESS**
 
     var answer = "";
+    var zip = "";
 
     $(".form-check-input").on("click", function () {
         var id = $(this).attr("id");
         answer = $("label[for='" + id + "']").text().trim();
+        zip = $("#zip").val();
     });
 
     $("#submit").on("click", function (event) {
@@ -60,7 +62,11 @@ $(document).ready(function () {
         //     settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5";
         // };
 
-        navigator.geolocation.getCurrentPosition(success, error, options);
+        if ($("#zip")) {
+            success();
+        } else {
+            navigator.geolocation.getCurrentPosition(success, error, options);
+        }
         // });
 
     };
@@ -97,7 +103,6 @@ $(document).ready(function () {
         }
 
 
-        var crd = pos.coords;
 
 
         // Yelp API Call
@@ -116,9 +121,9 @@ $(document).ready(function () {
         }
 
         if ($("#zip")) {
-            var zip = $("#zip").val();
             settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + food + "&location=" + zip + "&limit=5";
         } else {
+            var crd = pos.coords;
             settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5";
         };
 
@@ -145,7 +150,7 @@ $(document).ready(function () {
 
 
     var display = function (response) {
-        $("#yelpwidget").empty();
+        // $("#yelpwidget").empty();
 
         var data = response.businesses;
 
