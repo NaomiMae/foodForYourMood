@@ -1,7 +1,7 @@
 $(document).ready(function () {
- 
 
-    
+
+
     // $("#top").show();
     // $("#opener").hide();
 
@@ -35,11 +35,19 @@ $(document).ready(function () {
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
+        // alert($("#zip").val());
         emotionAPI();
     });
 
     var emotion = "";
+    var mood = {
+        joy: $("<img>").attr("src", "assets/images/Joy.png").width('150px').height('150px').addClass("animated bounce headShake"),
+        surprise: $("<img>").attr("src", "assets/images/Surprise.png").width('150px').height('150px').addClass("animated bounce headShake"),
+        anger: $("<img>").attr("src", "assets/images/Anger.png").width('150px').height('150px').addClass("animated bounce headShake"),
+        fear: $("<img>").attr("src", "assets/images/Fear.png").width('150px').height('150px').addClass("animated bounce headShake"),
+        sadness: $("<img>").attr("src", "assets/images/Sadness.png").width('150px').height('150px').addClass("animated bounce headShake"),
 
+    }
 
     var emotionAPI = function () {
 
@@ -84,19 +92,46 @@ $(document).ready(function () {
 
         if (emotion === "joy") {
             food = "juice";
-            $("#responses").show();
-            $("#responses").text("Hello world!");
+            $("#yelpResults").append(
+                $("<tr>").append(
+                    $("<th>").append(mood.joy),
+                    $("<th>").text("JOY: Juicing extracts the insoluble fiber from the produce leaving just the amazing nutrients for your body to absorb! Plus, juicing is a great way to incorporate a wide variety of fruits and veggies into your diet rather than sticking to the same boring salad everyday."), )
+            )
+
+            var newMoodPic = $("<img>").attr("src", "assets/images/Joy.png").addClass("animated rubberBand");
+
+            $("#currentMood").append(newMoodPic);
         } else if (emotion === "surprise") {
             food = "tea";
+            $("#yelpResults").append(
+                $("<tr>").append(
+                    $("<th>").append(mood.surprise),
+                    $("<th>").text("SURPRISE: If you’ve got a big interview or presentation coming up, try replacing your morning coffee (which can make you jittery) with a calming herbal tea. The calming effects of chamomile are so powerful that they have been found to reduce symptoms of mild to moderate generalised anxiety disorder, so try a cup of chamomile tea to help calm those last-minute nerves."), )
+            )
+
         } else if (emotion === "anger") {
             food = "nuts";
+            $("#yelpResults").append(
+                $("<tr>").append(
+                    $("<th>").append(mood.anger),
+                    $("<th>").text("ANGER: Try reaching for some nuts and seeds to help calm you down. Research has shown that Omega-3 deficiency can contribute to aggressive behavior of adult offenders and children with severe behavioural difficulties, while a Japanese study has suggested that zinc may ease anger in women. To up your intake of these nutrients, try opting for walnuts and flaxseeds, which contain both zinc and Omega-3 fatty acids."), )
+            )
         } else if (emotion === "disgust") {
             food = "smoothie";
         } else if (emotion === "fear") {
-            $("#responses").show();
-            $("#responses").text("Research suggests that folate deficiency may be behind irrational fears and anxiety, so try upping your intake of folate – as well as mood-boosting Omega-3 – by snacking on avocado.");
+            $("#yelpResults").append(
+                $("<tr>").append(
+                    $("<th>").append(mood.fear),
+                    $("<th>").text("DISGUST: Research suggests that folate deficiency may be behind irrational fears and anxiety, so try upping your intake of folate – as well as mood-boosting Omega-3 – by snacking on avocado."), )
+            )
+
             food = "guacamole";
         } else if (emotion === "sadness") {
+            $("#yelpResults").append(
+                $("<tr>").append(
+                    $("<th>").append(mood.sadness),
+                    $("<th>").text("If you’re feeling in need of a happiness boost, try upping your intake of oily fish to boost your brain health and mood. Oily fish is not only rich in Omega-3 fatty acids, which can help ward off depression, negativity and mood swings, but wild salmon and tuna are good sources of vitamin B12, which helps to regulate the mood."), )
+            )
             food = "seafood";
         } else {
             food = "ice cream";
