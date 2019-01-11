@@ -248,7 +248,7 @@ $(document).ready(function () {
         // s.onload = s.onreadystatechange = function () {
         getYelpWidget(id, "400", "YLW", "y", "y", "0");
         // };
-        s.src = 'http://chrisawren.com/widgets/yelp/yelpv2.js';
+        s.src = 'https://chrisawren.com/widgets/yelp/yelpv2.js';
         var x = document.getElementsByTagName('script')[0];
         x.parentNode.insertBefore(s, x);
     }
@@ -265,7 +265,7 @@ $(document).ready(function () {
                     $("#yelpwidget").append(xmlHttp.responseText);
                 }
             };
-            xmlHttp.open("GET", 'http://chrisawren.com/widgets/yelp/yelpv2.php?id=' + id + '&width=' + width + '&color=' + color + '&styled=' + styled + '&image=' + image + '&reviewnum=' + reviewnum, true);
+            xmlHttp.open("GET", 'https://chrisawren.com/widgets/yelp/yelpv2.php?id=' + id + '&width=' + width + '&color=' + color + '&styled=' + styled + '&image=' + image + '&reviewnum=' + reviewnum, true);
             xmlHttp.send();
         }
         else {
@@ -277,7 +277,7 @@ $(document).ready(function () {
                     $("#yelpwidget").append(xdr.responseText);
                 };
                 // 2. Open connection with server using GET method
-                xdr.open("GET", 'http://chrisawren.com/widgets/yelp/yelpv2.php?id=' + id + '&width=' + width + '&color=' + color + '&styled=' + styled + '&image=' + image + '&reviewnum=' + reviewnum, true);
+                xdr.open("GET", 'https://chrisawren.com/widgets/yelp/yelpv2.php?id=' + id + '&width=' + width + '&color=' + color + '&styled=' + styled + '&image=' + image + '&reviewnum=' + reviewnum, true);
                 // 3. Send string data to server
                 xdr.send();
             }
