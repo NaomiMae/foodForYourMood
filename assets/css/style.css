@@ -45,6 +45,8 @@
 #yelpwidget {
     font-weight: bold;
     font-size: 20px;
+    border: solid 2px #dee2e6;
+    padding: 15px;
 }
 
 #jumbo {
@@ -61,7 +63,7 @@
     position: relative;
 }
 
-#submit {
+#submit, #resetBtn {
     background-color:rgb(102,102,102);
 }
 
@@ -71,4 +73,36 @@
 
 #foodResults {
     background-color:rgb(254,216,0, .7);
+}
+
+
+#allResults, #resetBtn {
+    /* visibility: hidden; */
+    display: none;
+}
+
+#resetBtn {
+    margin-top: -40px;
+}
+
+#yelpheader a {
+    display: none;
+}
+
+.questions {
+    font-weight: bold;
+}
+
+
+#mood {
+    text-align:center;
+}
+
+#yelp {
+    margin: 0 auto;
+}
+
+.questions *, .questions {
+
+font-weight: bold;
 }

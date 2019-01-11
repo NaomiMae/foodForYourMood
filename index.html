@@ -24,39 +24,40 @@
         <div id="" class="row">
             <div id="" class="col-md-12">
 
-                <div id="" class="row">
+                <section id="" class="row">
                     <div id="" class="col-md-12">
-                        <div id="" class="d-flex justify-content-center">
-                            <div id="gif">
-                                <img src="./assets/images/giphy.gif" width="384" height="480">
+                        <div id="" class="row">
+                            <div id="" class="col-md-12">
+                                <div id="" class="d-flex justify-content-center">
+                                    <div id="gif">
+                                        <img src="./assets/images/giphy.gif" width="384" height="480">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="top" class="row">
+                            <div class="col-md-12">
+                                <div id="jumbo" class="jumbotron-fluid">
+                                    <p id="" class="display-4 text-center">Food for Your Mood</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
+                <br>
 
-                <div id="top" class="row">
-                    <div class="col-md-12">
-                        <div id="jumbo" class="jumbotron-fluid">
-                            <p id="" class="display-4 text-center">Food for Your Mood</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <br>
-            <div id="" class="col-md-12">
-
-                <div id="" class="row">
+                <section id="allForm" class="row">
                     <div class="col-md-12">
 
                         <div id="" class="row">
                             <div class="col-md-12">
-                                <label id="" class="" for="zip">
+                                <label id="" class="questions" for="zip">
                                     Optional: Enter your zip code:
                                 </label>
-                                <input id="zip" class="" type="text" name="">
+                                <input id="zip" class="" type="text" name="" maxlength="5" pattern="^[0-9]">
                             </div>
                         </div>
 
@@ -64,8 +65,7 @@
 
                         <div id="" class="row">
                             <div class="col-md-12">
-
-                                <form id="" class="">
+                                <form id="" class="questions">
 
                                     <p id="" class="">Please select one of the following that best describes your current mood:</p>
 
@@ -126,65 +126,73 @@
                         </div>
 
                     </div>
-                </div>
+                </section>
                 <br>
-                <div id="" class="row">
-                    <div class="col-md-12">
-                        <div id="" class="card">
-                            <h5 id="results" class="card-header">
-                                Results
-                            </h5>
-                            <div id="" class="card-body">
-                                <table class="table table-bordered" id="yelpResults">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Mood</th>
-                                            <th scope="col">Food</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <div id="" class="row">
-                    <div class="col-md-12">
-                        <div id="" class="card">
-                            <h5 id="foodResults" class="card-header">
-                                Results
-                            </h5>
-                            <div id="" class="card-body">
-                                <table class="table table-bordered" id="yelpResults">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Image</th>
-                                            <th scope="col">Name of Restaurant</th>
-                                            <th scope="col">Reviews</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row" id="image"></th>
-                                            <th scope="row" id="nameOfRestaurant"></th>
-                                            <th scope="row" id="reviews"></th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div id="yelpwidget"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <br>
-    </div>
+
+                <section id="allResults" class="row">
+                    <div class="col-md-12">
+
+                        <section id="" class="">
+                            <button id="resetBtn" class="btn btn-primary">Reset</button>
+                        </section>
+
+                        <br>
+
+                        <div id="" class="row">
+                            <div class="col-md-12">
+                                <div id="" class="card">
+                                    <h5 id="results" class="card-header">
+                                        Results
+                                    </h5>
+                                    <div id="" class="card-body">
+                                        <table class="table table-bordered" id="yelpResults">
+                                            <thead>
+                                                <tr>
+                                                    <th id="mood" scope="col">Mood</th>
+                                                    <th scope="col">Food</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div id="" class="row">
+                            <div class="col-md-12">
+                                <div id="" class="card">
+                                    <h5 id="foodResults" class="card-header">
+                                        Restaurants
+                                    </h5>
+                                    <div id="" class="card-body">
+                                        <table class="table table-bordered" id="yelpResults">
+                                            <thead>
+                                                <tr>
+                                                  
+                                                    <th scope="col">
+                                                        Top Search Results: These fine establishments offer the fare to meet your mood!
+                                                    </th>                                            
+
+                                                </tr>
+                                            </thead>
+                        
+                                        </table>
+                                        <div id="yelpwidget" class="d-flex flex-wrap"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+            </div>
+            <br>
+        </div>
 </body>
 
 </html>
