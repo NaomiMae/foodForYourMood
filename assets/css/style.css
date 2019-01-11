@@ -42,9 +42,15 @@
     font-family: 'Raleway', sans-serif;   
 }
 
+.questions {
+    font-weight: bold;
+}
+
 #yelpwidget {
     font-weight: bold;
     font-size: 20px;
+    border: solid 2px #dee2e6;
+    padding: 15px;
 }
 
 #jumbo {
@@ -71,4 +77,16 @@
 
 #foodResults {
     background-color:rgb(254,216,0, .7);
+}
+
+#mood {
+    text-align:center;
+}
+
+#yelp {
+    margin: 0 auto;
+}
+
+#yelpheader a {
+    display:none;
 }
