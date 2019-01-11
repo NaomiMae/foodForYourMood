@@ -1,6 +1,15 @@
 $(document).ready(function () {
 
+    $('#zip').keypress(function (e) {
+        var regex = new RegExp("^[0-9]");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+            return true;
+        }
 
+        e.preventDefault();
+        return false;
+    });
 
     // $("#top").show();
     // $("#opener").hide();
@@ -20,7 +29,7 @@ $(document).ready(function () {
     //
 
 
-
+    var transitionTime = 1500;
 
     // Food Varibles??? **WORK IN PROGRESS**
 
@@ -35,48 +44,65 @@ $(document).ready(function () {
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
-        // alert($("#zip").val());
+
+        $("#allForm").toggle(transitionTime);
+        $("#allResults").toggle(transitionTime);
+        $("#resetBtn").toggle(transitionTime);
+
         emotionAPI();
     });
 
-    var emotion = "";
-    var mood = {
-        joy: $("<img>").attr("src", "assets/images/Joy.png").width('150px').height('150px').addClass("animated bounce headShake"),
-        surprise: $("<img>").attr("src", "assets/images/Surprise.png").width('150px').height('150px').addClass("animated bounce headShake"),
-        anger: $("<img>").attr("src", "assets/images/Anger.png").width('150px').height('150px').addClass("animated bounce headShake"),
-        fear: $("<img>").attr("src", "assets/images/Fear.png").width('150px').height('150px').addClass("animated bounce headShake"),
-        sadness: $("<img>").attr("src", "assets/images/Sadness.png").width('150px').height('150px').addClass("animated bounce headShake"),
+    $("#resetBtn").on("click", function (event) {
+        answer = "";
+        zip = "";
+        emotion = "";
+        $("#zip").val("");
+        $("tbody").empty();
+        $("#yelpwidget").empty()
+        $("#allForm").toggle(transitionTime);
+        $("#allResults").toggle(transitionTime);
+        $("#resetBtn").toggle(transitionTime);
+    });
 
-    }
+    var emotion = "";
 
     var emotionAPI = function () {
 
         var queryURL = "https://twinword-emotion-analysis-v1.p.rapidapi.com/analyze/?text=" + answer;
 
-        // $.ajax({
-        //     url: queryURL,
-        //     headers: {
-        //         "X-RapidAPI-Key": "GYSavRj3MOmshxASbcqk3TQQfpCTp1b8Hjwjsn2OPtTaCiNc5P"
-        //     },
-        //     method: "GET"
-        // }).then(function (result) {
-        emotion = "joy";
-        //     emotion = result.emotions_detected[0];
-        //     console.log(emotion + ": retrieved from analysisAPI" );
+        $.ajax({
+            url: queryURL,
+            headers: {
+                "X-RapidAPI-Key": "GYSavRj3MOmshxASbcqk3TQQfpCTp1b8Hjwjsn2OPtTaCiNc5P"
+            },
+            method: "GET",
+            error: function() {
+                location.reload();
+            }
+        }).then(function (result) {
+            // emotion = "joy";
+            emotion = result.emotions_detected[0];
+            console.log(emotion + ": retrieved from analysisAPI");
 
-        // if ($("#zip")) {
-        //     settings.url = "https://api.yelp.com/v3/businesses/search?term=delis&location=" + zip + ;
-        // } else {
-        //     settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5";
-        // };
+            // if ($("#zip")) {
+            //     settings.url = "https://api.yelp.com/v3/businesses/search?term=delis&location=" + zip ;
+            // } else {
+            //     settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5";
+            // };
 
-        if ($("#zip")) {
-            success();
-        } else {
-            navigator.geolocation.getCurrentPosition(success, error, options);
-        }
-        // });
+            if ($("#zip").val()) {
+                // alert('zip in use');
+                success();
+            } else {
+                // alert("navigator used");
+                navigator.geolocation.getCurrentPosition(success, error, options);
+            }
+            // });
 
+            database.ref().push({
+                emotion: emotion
+            });
+        });
     };
 
 
@@ -87,6 +113,15 @@ $(document).ready(function () {
 
     // 1.) success function
     function success(pos) {
+
+        var mood = {
+            joy: $("<img>").attr("src", "assets/images/Joy.png").width('150px').height('150px').addClass("animated bounce headShake"),
+            surprise: $("<img>").attr("src", "assets/images/Surprise.png").width('150px').height('150px').addClass("animated bounce headShake"),
+            anger: $("<img>").attr("src", "assets/images/Anger.png").width('150px').height('150px').addClass("animated bounce headShake"),
+            fear: $("<img>").attr("src", "assets/images/Fear.png").width('150px').height('150px').addClass("animated bounce headShake"),
+            sadness: $("<img>").attr("src", "assets/images/Sadness.png").width('150px').height('150px').addClass("animated bounce headShake"),
+        }
+
 
         var food = "";
 
@@ -130,7 +165,7 @@ $(document).ready(function () {
             $("#yelpResults").append(
                 $("<tr>").append(
                     $("<th>").append(mood.sadness),
-                    $("<th>").text("If you’re feeling in need of a happiness boost, try upping your intake of oily fish to boost your brain health and mood. Oily fish is not only rich in Omega-3 fatty acids, which can help ward off depression, negativity and mood swings, but wild salmon and tuna are good sources of vitamin B12, which helps to regulate the mood."), )
+                    $("<th>").text("SADNESS: If you’re feeling in need of a happiness boost, try upping your intake of oily fish to boost your brain health and mood. Oily fish is not only rich in Omega-3 fatty acids, which can help ward off depression, negativity and mood swings, but wild salmon and tuna are good sources of vitamin B12, which helps to regulate the mood."), )
             )
             food = "seafood";
         } else {
@@ -155,11 +190,11 @@ $(document).ready(function () {
             }
         }
 
-        if ($("#zip")) {
-            settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + food + "&location=" + zip + "&limit=5";
+        if ($("#zip").val()) {
+            settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + food + "&location=" + zip + "&limit=6";
         } else {
             var crd = pos.coords;
-            settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=5";
+            settings.url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + crd.latitude + "&longitude=" + crd.longitude + "&term=" + food + "&limit=6";
         };
 
         $.ajax(settings).done(function (response) {
@@ -172,6 +207,7 @@ $(document).ready(function () {
 
     // 2.) error handler
     function error(err) {
+        location.reload();
         console.warn(`ERROR(${err.code}): ${err.message}`);
     };
 
