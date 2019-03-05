@@ -198,7 +198,8 @@ $(document).ready(function () {
         };
 
         $.ajax(settings).done(function (response) {
-            display(response)
+            display(response);
+            console.log(response);
             // console.log(response);
         });
 
@@ -225,11 +226,53 @@ $(document).ready(function () {
 
         var data = response.businesses;
 
-        data.forEach(function (y, i) {
+        data.forEach(function (business, i) {
             // console.log(i);
             // console.log(y);
-            var yelpID = y.id;
-            yelpEmbed(yelpID);
+            console.log(data);
+            var yelpID = business.id;
+            var name = business.name;
+            var image_url = business.image_url;
+            var price = business.price ? business.price : "";
+            var phone = business.display_phone;
+            var rating = String(business.rating);
+            var rating2 = rating.replace(".","") + "stars.png";
+            var reviews = business.review_count;
+            var address = business.location;
+            var bizUrl = business.url;
+
+            var yelpReviewListing = $(`
+                <div class="container yelpReview">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a href="${bizUrl}"><img src="${image_url}" style="width: 125px; height: 125px" ></a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="${bizUrl}"><h5 style="font-weight: bold;" >${name}</h5></a>
+                            <a href="${bizUrl}"><img src="assets/images/${rating2}"></a>
+                            <h6 >${reviews} reviews</h6>
+                            <h6 >${price}</h6>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 >${phone}</h6>
+                            <div>
+                                <h6 >${address.address1} ${address.address2}</h6>
+                                <h6 >${address.city}, ${address.state}</h6>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <br>
+                </div>
+                <br>
+            `);
+
+            $("#yelpwidget").append(yelpReviewListing);
+
+
+
+            // yelpEmbed(yelpID);
+            console.log("loop", i);
             // console.log(yelpResult);
             // console.log(yelpEmbed(yelpID));
             // console.log(yelpResult);
@@ -257,24 +300,34 @@ $(document).ready(function () {
     // brought in the code from the 3rd party widget and changed the html to append instead of replace
     function getYelpWidget(id, width, color, image, styled, reviewnum) {
         if ('withCredentials' in new XMLHttpRequest()) {
-
+            console.log("res 1a");
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                     // document.getElementById('yelpwidget').innerHTML = xmlHttp.responseText;
+                    console.log("res 1b");
+                    console.log(xmlHttp.responseText);
                     $("#yelpwidget").append(xmlHttp.responseText);
+                    // $("#yelpwidget").append("<div>test</div>");
+                    console.log("res 1c");
+                    // console.log(xmlHttp.responseText);
                 }
             };
             xmlHttp.open("GET", 'https://chrisawren.com/widgets/yelp/yelpv2.php?id=' + id + '&width=' + width + '&color=' + color + '&styled=' + styled + '&image=' + image + '&reviewnum=' + reviewnum, true);
             xmlHttp.send();
         }
         else {
+            console.log("res 2a");
             if (typeof XDomainRequest !== "undefined") {
+                console.log("res 2b");
                 // 1. Create XDR object
                 var xdr = new XDomainRequest();
                 xdr.onload = function () {
                     // document.getElementById('yelpwidget').innerHTML = xdr.responseText;
+                    console.log("res 2c");
                     $("#yelpwidget").append(xdr.responseText);
+                    console.log("res 2d");
+                    // console.log(xdr.responseText);
                 };
                 // 2. Open connection with server using GET method
                 xdr.open("GET", 'https://chrisawren.com/widgets/yelp/yelpv2.php?id=' + id + '&width=' + width + '&color=' + color + '&styled=' + styled + '&image=' + image + '&reviewnum=' + reviewnum, true);
