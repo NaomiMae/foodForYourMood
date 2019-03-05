@@ -103,6 +103,9 @@
 }
 
 .questions *, .questions {
+    font-weight: bold;
+}
 
-font-weight: bold;
+.yelpReview {
+    width: 450px !important;
 }
